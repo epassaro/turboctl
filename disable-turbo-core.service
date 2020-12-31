@@ -1,0 +1,12 @@
+[Unit]
+Description=Disable AMD Turbo Core
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c "echo 0 > /sys/devices/system/cpu/cpufreq/boost"
+ExecStop=/bin/bash -c "echo 1 > /sys/devices/system/cpu/cpufreq/boost"
+RemainAfterExit=true
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

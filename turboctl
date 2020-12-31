@@ -1,0 +1,21 @@
+#! /usr/bin/env python3
+
+import argparse
+import subprocess
+
+parser = argparse.ArgumentParser(
+    description="a script to control AMD Turbo Core via systemd service"
+)
+parser.add_argument("-s", "--status", help="show current status", action="store_true")
+parser.add_argument("-e", "--enable", help="enable turbo core", action="store_true")
+parser.add_argument("-d", "--disable", help="disable turbo core", action="store_true")
+args = parser.parse_args()
+
+if args.status:
+    subprocess.Popen(["cat", "/sys/devices/system/cpu/cpufreq/boost"])
+
+if args.enable:
+    subprocess.Popen(["systemctl", "stop", "disable-turbo-core.service"])
+
+if args.disable:
+    subprocess.Popen(["systemctl", "start", "disable-turbo-core.service"])
